@@ -1,0 +1,2 @@
+../Core/Src/hal.c:13:10:HAL_millis_U32	8	static
+../Core/Src/hal.c:19:16:HAL_setLed	16	static

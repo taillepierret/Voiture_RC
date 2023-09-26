@@ -1,7 +1,0 @@
-../Core/Src/hal.c:14:17:HAL_millis_U32	8	static
-../Core/Src/hal.c:19:6:HAL_spiInit	16	static
-../Core/Src/hal.c:26:16:HAL_setLed	16	static
-../Core/Src/hal.c:41:13:HAL_setCE	16	static
-../Core/Src/hal.c:46:13:HAL_setIRQ	16	static
-../Core/Src/hal.c:51:16:HAL_writeSpiValue_EN	48	static
-../Core/Src/hal.c:75:16:HAL_readSpiValue_EN	48	static

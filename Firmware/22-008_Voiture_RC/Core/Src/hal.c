@@ -72,7 +72,7 @@ HAL_ret_val_en HAL_writeSpiValue_EN(uint8_t address_register_U8, uint8_t* value_
 	}
 }
 
-HAL_ret_val_en HAL_readSpiValue_EN(uint8_t addresaddr_register_U8, uint8_t* ret_value_U8,const uint16_t size_ret_value_U16)
+HAL_ret_val_en HAL_readSpiValue_EN(uint8_t addresaddr_register_U8, uint8_t* ret_value_U8,uint16_t size_ret_value_U16)
 {
 	HAL_StatusTypeDef ret_val;
 	uint8_t tx_data_U8[2] = {0};

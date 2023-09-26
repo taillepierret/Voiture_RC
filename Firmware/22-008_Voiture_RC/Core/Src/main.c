@@ -51,13 +51,6 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-static NRF_HAL_function_str NRF_HAL_function_STR =
-{
-		.readSpiValue_EN_PF = HAL_readSpiValue_EN,
-		.writeSpiValue_EN_PF = HAL_writeSpiValue_EN,
-		.setCe_PF = HAL_setCE,
-		.setIrq_PF = HAL_setIRQ
-};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -114,13 +107,10 @@ int main(void) {
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-
-	NRFInitModule_EN(NRF_HAL_function_STR);
+	NRF24_Init();
+	uint8_t data[40] = {0};
 	while (1) {
-		NRF_setRxMode();
-		HAL_Delay(500);
-		NRF_setTxMode();
-		HAL_Delay(500);
+		NRF24_ReadAll (data);
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

@@ -1,0 +1,4 @@
+../Core/Src/nrf24l01.c:13:6:NRFInitModule_EN	32	static
+../Core/Src/nrf24l01.c:24:16:NRF_setRxMode	24	static
+../Core/Src/nrf24l01.c:62:16:NRF_setTxMode	24	static
+../Core/Src/nrf24l01.c:100:16:NRF_powerOn	40	static

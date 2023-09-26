@@ -20,11 +20,20 @@ typedef enum {
 typedef enum
 {
 	LED_SET_OK,
-	LED_SET_ERROR
+	LED_SET_ERROR,
+	SPI_WRITE_ERROR_EN,
+	SPI_WRITE_OK_EN,
+	SPI_READ_ERROR_EN,
+	SPI_READ_OK_EN
 }HAL_ret_val_en;
 
 
 HAL_ret_val_en HAL_setLed(led_en led_EN, bool state_B);
 uint32_t HAL_millis_U32(void);
+HAL_ret_val_en HAL_writeSpiValue_EN(uint8_t address_register_U8, uint8_t* value_U8, uint16_t size_value_U16);
+HAL_ret_val_en HAL_readSpiValue_EN(uint8_t addresaddr_register_U8, uint8_t* ret_value_U8, uint16_t size_ret_value_U16);
+void HAL_setCE(bool state_B);
+void HAL_setIRQ(bool state_B);
+
 
 #endif /* INC_HAL_H_ */

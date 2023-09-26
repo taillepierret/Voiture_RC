@@ -1,2 +1,0 @@
-../Core/Src/hal.c:13:10:HAL_millis_U32	1
-../Core/Src/hal.c:19:16:HAL_setLed	3

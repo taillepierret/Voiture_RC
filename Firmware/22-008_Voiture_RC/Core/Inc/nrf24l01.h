@@ -9,33 +9,33 @@
 #define INC_NRF24L01_H_
 
 #include "hal.h"
-/*
+
 typedef enum{
-	CONFIG = 0x00,
-	EN_AA = 0x01,
-	EN_RXADDR = 0x02,
-	SETUP_AW = 0x03,
-	SETUP_RETR = 0x04,
-	RF_CH = 0x05,
-	RF_SETUP = 0x06,
-	STATUS = 0x07,
-	OBSERVE_TX = 0x08,
-	CD = 0x09,
-	RX_ADDR_P0 = 0x0A,
-	RX_ADDR_P1 = 0x0B,
-	RX_ADDR_P2 = 0x0B,
-	RX_ADDR_P3 = 0x0D,
-	RX_ADDR_P4 = 0x0E,
-	RX_ADDR_P5 = 0x0F,
-	TX_ADDR = 0x10,
-	RX_PW_P0 = 0x11,
-	RX_PW_P1 = 0x12,
-	RX_PW_P2 = 0x13,
-	RX_PW_P3 = 0x14,
-	RX_PW_P4 = 0x15,
-	RX_PW_P5 = 0x16,
-	FIFO_STATUS = 0x17
-}NRF_register_en;
+	CONFIG_REG = 0x00,
+	EN_AA_REG = 0x01,
+	EN_RXADDR_REG = 0x02,
+	SETUP_AW_REG = 0x03,
+	SETUP_RETR_REG = 0x04,
+	RF_CH_REG = 0x05,
+	RF_SETUP_REG = 0x06,
+	STATUS_REG = 0x07,
+	OBSERVE_TX_REG = 0x08,
+	CD_REG = 0x09,
+	RX_ADDR_P0_REG = 0x0A,
+	RX_ADDR_P1_REG = 0x0B,
+	RX_ADDR_P2_REG = 0x0B,
+	RX_ADDR_P3_REG = 0x0D,
+	RX_ADDR_P4_REG = 0x0E,
+	RX_ADDR_P5_REG = 0x0F,
+	TX_ADDR_REG = 0x10,
+	RX_PW_P0_REG = 0x11,
+	RX_PW_P1_REG = 0x12,
+	RX_PW_P2_REG = 0x13,
+	RX_PW_P3_REG = 0x14,
+	RX_PW_P4_REG = 0x15,
+	RX_PW_P5_REG = 0x16,
+	FIFO_STATUS_REG = 0x17
+}NRF_register_REG;
 
 typedef enum{
 	INIT_OK_EN,
@@ -51,9 +51,9 @@ typedef enum{
 typedef struct{
 	void (*setCe_PF)(bool state_B);
 	void (*setIrq_PF)(bool state_B);
-	HAL_ret_val_en (*writeSpiValue_EN_PF)(uint8_t address_register_U8, uint8_t* value_U8, uint16_t size_value_U16);
-	HAL_ret_val_en (*readSpiValue_EN_PF)(uint8_t addresaddr_register_U8, uint8_t* ret_value_U8, uint16_t size_ret_value_U16);
-}NRF_HAL_function_str;*/
+	HAL_ret_val_en (*writeSpiValue_EN_PF)(uint8_t* write_value_U8, uint16_t size_value_U16);
+	HAL_ret_val_en (*readSpiValue_EN_PF)(uint8_t* read_value_U8, uint16_t size_ret_value_U16);
+}NRF_HAL_function_str;
 
 
 

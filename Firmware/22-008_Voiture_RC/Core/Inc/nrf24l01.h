@@ -43,28 +43,34 @@ typedef enum{
 	NRF_SET_MODE_OK_EN,
 	NRF_SET_MODE_ERROR_EN,
 	NRF_SPI_ERROR_EN,
+	NRF_SPI_OK_EN,
 	NRF_POWER_MODULE_ALREADY_SET_EN,
 	NRF_POWER_MODULE_SET_ERROR_EN,
-	NRF_POWER_MODULE_SET_EN
+	NRF_POWER_MODULE_SET_EN,
+	NRF_TX_MODE_SET_EN,
+	NRF_RX_MODE_SET_EN,
+	NRF_TX_DONE_EN,
+	NRF_RX_DONE_EN,
+	NRF_SIZE_BUFFER_TX_TOO_LARGE
 }NRF_ret_val_en;
 
 typedef struct{
 	void (*setCe_PF)(bool state_B);
 	void (*setIrq_PF)(bool state_B);
 	HAL_ret_val_en (*writeSpiValue_EN_PF)(uint8_t* write_value_U8, uint16_t size_value_U16);
-	HAL_ret_val_en (*readSpiValue_EN_PF)(uint8_t* read_value_U8, uint16_t size_ret_value_U16);
+	HAL_ret_val_en (*readSpiValue_EN_PF)(uint8_t reg_U8, uint8_t* read_value_U8A,uint16_t size_read_value_U16);
 }NRF_HAL_function_str;
 
 
 
 
 
-void NRF24_Init (void);
+void NRF24_Init (NRF_HAL_function_str NRF_HAL_function_STR);
 
-void NRF24_TxMode (uint8_t *Address, uint8_t channel);
+NRF_ret_val_en NRF24_TxMode (uint8_t *Address, uint8_t channel);
 uint8_t NRF24_Transmit (uint8_t *data);
 
-void NRF24_RxMode (uint8_t *Address, uint8_t channel);
+NRF_ret_val_en NRF24_RxMode (uint8_t *Address, uint8_t channel);
 uint8_t isDataAvailable (int pipenum);
 void NRF24_Receive (uint8_t *data);
 

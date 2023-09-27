@@ -6,46 +6,59 @@
  */
 
 #include "nrf24l01.h"
+#define cSIZE_BUFFER_TX_MAC_U8 32
 
-
-static void CE_Enable (void)
-{
-	//HAL_GPIO_WritePin(GPIOB, CE_Pin, 1);
-}
-
-static void CE_Disable (void)
-{
-	//HAL_GPIO_WritePin(GPIOB, CE_Pin, 0);
-}
 
 //TODO ajouter les retours de fonction
 
-//NRF_HAL_function_str NRF_HAL_function_local_STR;
+static NRF_HAL_function_str NRF_HAL_function_local_STR;
 static bool NRF_isInit = false;
 
 
 // write a single byte to the particular register
-static void NRF_WriteReg (NRF_register_REG register_REG, uint8_t Data_U8)
+static NRF_ret_val_en NRF_WriteReg (NRF_register_REG register_REG, uint8_t Data_U8)
 {
 	const uint16_t size_buf_U16 = 2;
 	uint8_t buf_U8[size_buf_U16];
+	HAL_ret_val_en HAL_ret_val_EN;
+
 	buf_U8[0] = register_REG|1<<5;
 	buf_U8[1] = Data_U8;
 
-	HAL_writeSpiValue_EN(buf_U8, size_buf_U16);
+	HAL_ret_val_EN = HAL_writeSpiValue_EN(buf_U8, size_buf_U16);
+
+	if (HAL_ret_val_EN != SPI_WRITE_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
+	else
+	{
+		return NRF_SPI_OK_EN;
+	}
 
 }
 
-//write multiple bytes starting from a particular register
-static void NRF_WriteRegMulti (NRF_register_REG register_REG, uint8_t* Data_U8A, uint16_t size_U16)
+
+static HAL_ret_val_en NRF_WriteRegMulti (NRF_register_REG register_REG, uint8_t* Data_U8A, uint16_t size_U16)
 {
 	uint8_t buf_U8A[1+size_U16];
 	buf_U8A[0] = register_REG|1<<5;
+	HAL_ret_val_en HAL_ret_val_EN;
+
 	for (uint16_t counter_U16=0 ; counter_U16<size_U16 ; counter_U16++){
 		buf_U8A[1+counter_U16] = Data_U8A[counter_U16];
 	}
 
-	HAL_writeSpiValue_EN(buf_U8A, 1+size_U16);
+	HAL_ret_val_EN = HAL_writeSpiValue_EN(buf_U8A, 1+size_U16);
+
+	if (HAL_ret_val_EN != SPI_WRITE_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
+	else
+	{
+		return NRF_SPI_OK_EN;
+	}
 
 	/*
 	// Pull the CS Pin LOW to select the device
@@ -59,10 +72,20 @@ static void NRF_WriteRegMulti (NRF_register_REG register_REG, uint8_t* Data_U8A,
 }
 
 
-static uint8_t nrf24_ReadReg (NRF_register_REG register_REG)
+static NRF_ret_val_en nrf24_ReadReg (NRF_register_REG register_REG, uint8_t* read_value_U8P)
 {
-	uint8_t data=0;
-	HAL_readSpiValue_EN((uint8_t)register_REG,&data,1);
+	HAL_ret_val_en HAL_ret_val_EN;
+	read_value_U8P = 0;
+	HAL_ret_val_EN = HAL_readSpiValue_EN((uint8_t)register_REG,read_value_U8P,1);
+
+	if (HAL_ret_val_EN != SPI_READ_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
+	else
+	{
+		return NRF_SPI_OK_EN;
+	}
 	// Pull the CS Pin LOW to select the device
 	/*CS_Select();
 
@@ -71,15 +94,23 @@ static uint8_t nrf24_ReadReg (NRF_register_REG register_REG)
 
 	// Pull the CS HIGH to release the device
 	CS_UnSelect();*/
-
-	return data;
 }
 
 
 /* Read multiple bytes from the register */
-static void nrf24_ReadReg_Multi (NRF_register_REG register_REG, uint8_t* read_value_U8A,uint16_t size_read_value_U16)
+static HAL_ret_val_en nrf24_ReadReg_Multi (NRF_register_REG register_REG, uint8_t* read_value_U8A,uint16_t size_read_value_U16)
 {
-	HAL_readSpiValue_EN((uint8_t)register_REG,read_value_U8A,size_read_value_U16);
+	HAL_ret_val_en HAL_ret_val_EN;
+	HAL_ret_val_EN = HAL_readSpiValue_EN((uint8_t)register_REG,read_value_U8A,size_read_value_U16);
+
+	if (HAL_ret_val_EN != SPI_READ_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
+	else
+	{
+		return NRF_SPI_OK_EN;
+	}
 	// Pull the CS Pin LOW to select the device
 	/*CS_Select();
 
@@ -92,15 +123,19 @@ static void nrf24_ReadReg_Multi (NRF_register_REG register_REG, uint8_t* read_va
 
 
 // send the command to the NRF
-static void nrfsendCmd (uint8_t cmd)
+static HAL_ret_val_en nrfsendCmd (uint8_t cmd)
 {
-	// Pull the CS Pin LOW to select the device
-	/*CS_Select();
+	HAL_ret_val_en HAL_ret_val_EN;
+	HAL_ret_val_EN = HAL_writeSpiValue_EN(&cmd, 1);
 
-	HAL_SPI_Transmit(NRF24_SPI, &cmd, 1, 100);
-
-	// Pull the CS HIGH to release the device
-	CS_UnSelect();*/
+	if (HAL_ret_val_EN != SPI_READ_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
+	else
+	{
+		return NRF_SPI_OK_EN;
+	}
 }
 
 static void nrf24_reset(uint8_t REG)
@@ -151,10 +186,15 @@ static void nrf24_reset(uint8_t REG)
 
 
 
-void NRF24_Init (void)
+void NRF24_Init (NRF_HAL_function_str NRF_HAL_function_STR)
 {
+	NRF_HAL_function_local_STR.readSpiValue_EN_PF = NRF_HAL_function_STR.readSpiValue_EN_PF;
+	NRF_HAL_function_local_STR.setCe_PF = NRF_HAL_function_STR.setCe_PF;
+	NRF_HAL_function_local_STR.setIrq_PF = NRF_HAL_function_STR.setIrq_PF;
+	NRF_HAL_function_local_STR.writeSpiValue_EN_PF = NRF_HAL_function_STR.writeSpiValue_EN_PF;
+
 	// disable the chip before configuring the device
-	CE_Disable();
+	NRF_HAL_function_local_STR.setCe_PF(false);
 
 
 	// reset everything
@@ -175,17 +215,23 @@ void NRF24_Init (void)
 	NRF_WriteReg (RF_SETUP_REG, 0x0E);   // Power= 0db, data rate = 2Mbps
 
 	// Enable the chip after configuring the device
-	CE_Enable();
+	NRF_HAL_function_local_STR.setCe_PF(true);
+
+	NRF_isInit = true;
 
 }
 
 
 // set up the Tx mode
 
-void NRF24_TxMode (uint8_t *Address, uint8_t channel)
+NRF_ret_val_en NRF24_TxMode (uint8_t *Address, uint8_t channel)
 {
+	if (NRF_isInit == false)
+	{
+		return NRF_NOT_INIT_EN;
+	}
 	// disable the chip before configuring the device
-	CE_Disable();
+	NRF_HAL_function_local_STR.setCe_PF(false);
 
 	NRF_WriteReg (RF_CH, channel);  // select the channel
 
@@ -194,58 +240,82 @@ void NRF24_TxMode (uint8_t *Address, uint8_t channel)
 
 	// power up the device
 	uint8_t config = nrf24_ReadReg(CONFIG);
-//	config = config | (1<<1);   // write 1 in the PWR_UP bit
 	config = config & (0xF2);    // write 0 in the PRIM_RX, and 1 in the PWR_UP, and all other bits are masked
 	NRF_WriteReg (CONFIG, config);
 
 	// Enable the chip after configuring the device
-	CE_Enable();
+	NRF_HAL_function_local_STR.setCe_PF(true);
+
+	return NRF_TX_MODE_SET_EN;
 }
 
 
 // transmit the data
 
-uint8_t NRF24_Transmit (uint8_t *data)
+NRF_ret_val_en NRF24_Transmit (uint8_t *data, uint8_t size_data_U8)
 {
-	/*uint8_t cmdtosend = 0;
+	uint8_t cmdtosend = 0;
+	uint8_t data_to_send_U8A[size_data_U8+1];
+	HAL_ret_val_en HAL_ret_val_EN;
 
-	// select the device
-	CS_Select();
+	if (size_data_U8>cSIZE_BUFFER_TX_MAC_U8)
+	{
+		return NRF_SIZE_BUFFER_TX_TOO_LARGE;
+	}
 
 	// payload command
-	cmdtosend = W_TX_PAYLOAD;
-	HAL_SPI_Transmit(NRF24_SPI, &cmdtosend, 1, 100);
+	data_to_send[0] = W_TX_PAYLOAD;
+	for (uint8_t cnt_U8=0 ; cnt_U8<size_data_U8 ; cnt_U8++)
+	{
+		data_to_send_U8A[cnt_U8+1] = data[cnt_U8];
+	}
 
-	// send the payload
-	HAL_SPI_Transmit(NRF24_SPI, data, 32, 1000);
+	HAL_ret_val_EN = HAL_writeSpiValue_EN(data_to_send_U8A, (uint16_t)size_data_U8, 1000);
 
-	// Unselect the device
-	CS_UnSelect();
+	if (HAL_ret_val_EN != SPI_READ_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
 
 	HAL_Delay(1);
 
-	uint8_t fifostatus = nrf24_ReadReg(FIFO_STATUS);
+	uint8_t fifostatus = 0;
+	HAL_ret_val_EN = nrf24_ReadReg(FIFO_STATUS, &fifostatus);
+
+	if (HAL_ret_val_EN != SPI_READ_OK_EN)
+	{
+		return NRF_SPI_ERROR_EN;
+	}
 
 	// check the fourth bit of FIFO_STATUS to know if the TX fifo is empty
 	if ((fifostatus&(1<<4)) && (!(fifostatus&(1<<3))))
 	{
 		cmdtosend = FLUSH_TX;
-		nrfsendCmd(cmdtosend);
+		HAL_ret_val_EN = nrfsendCmd(cmdtosend);
+
+		if (HAL_ret_val_EN != SPI_READ_OK_EN)
+		{
+			return NRF_SPI_ERROR_EN;
+		}
 
 		// reset FIFO_STATUS
 		nrf24_reset (FIFO_STATUS);
 
 		return 1;
-	}*/
+	}
 
 	return 0;
 }
 
 
-void NRF24_RxMode (uint8_t *Address, uint8_t channel)
+NRF_ret_val_en NRF24_RxMode (uint8_t *Address, uint8_t channel)
 {
+	if (NRF_isInit == false)
+	{
+		return NRF_NOT_INIT_EN;
+	}
 	// disable the chip before configuring the device
-	CE_Disable();
+	NRF_HAL_function_local_STR.setCe_PF(false);
 
 	nrf24_reset (STATUS);
 
@@ -278,7 +348,9 @@ void NRF24_RxMode (uint8_t *Address, uint8_t channel)
 	NRF_WriteReg (CONFIG, config);
 
 	// Enable the chip after configuring the device
-	CE_Enable();
+	NRF_HAL_function_local_STR.setCe_PF(true);
+
+	return NRF_RX_MODE_SET_EN;
 }
 
 

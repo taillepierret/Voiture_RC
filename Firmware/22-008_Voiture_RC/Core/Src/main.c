@@ -51,6 +51,7 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+static NRF_HAL_function_str NRF_HAL_function_local_STR;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -85,7 +86,10 @@ int main(void) {
 	HAL_Init();
 
 	/* USER CODE BEGIN Init */
-
+	NRF_HAL_function_local_STR.readSpiValue_EN_PF = HAL_readSpiValue_EN;
+	NRF_HAL_function_local_STR.setCe_PF = HAL_setCE;
+	NRF_HAL_function_local_STR.setIrq_PF = HAL_setIRQ;
+	NRF_HAL_function_local_STR.writeSpiValue_EN_PF = HAL_writeSpiValue_EN;
 	/* USER CODE END Init */
 
 	/* Configure the system clock */
@@ -107,10 +111,12 @@ int main(void) {
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	NRF24_Init();
+	uint8_t test[5] = {1,1,1,1,1};
+	NRF24_Init(NRF_HAL_function_local_STR);
 	uint8_t data[40] = {0};
 	while (1) {
 		NRF24_ReadAll (data);
+		NRF24_TxMode(test, test[0]);
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

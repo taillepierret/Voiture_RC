@@ -5,3 +5,4 @@
 ../Core/Src/hal.c:46:13:HAL_setIRQ	1
 ../Core/Src/hal.c:51:16:HAL_writeSpiValue_EN	2
 ../Core/Src/hal.c:67:16:HAL_readSpiValue_EN	3
+../Core/Src/hal.c:89:13:HAL_delay_ms	1

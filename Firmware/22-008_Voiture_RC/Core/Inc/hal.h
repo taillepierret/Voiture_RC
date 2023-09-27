@@ -34,6 +34,7 @@ HAL_ret_val_en HAL_writeSpiValue_EN(uint8_t* value_U8A, uint16_t size_value_U16)
 HAL_ret_val_en HAL_readSpiValue_EN(uint8_t reg_U8, uint8_t* read_value_U8A,uint16_t size_read_value_U16);
 void HAL_setCE(bool state_B);
 void HAL_setIRQ(bool state_B);
+void HAL_delay_ms(uint32_t time_ms_U32);
 
 
 #endif /* INC_HAL_H_ */

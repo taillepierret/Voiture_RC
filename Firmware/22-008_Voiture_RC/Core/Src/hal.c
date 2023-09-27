@@ -84,8 +84,11 @@ HAL_ret_val_en HAL_readSpiValue_EN(uint8_t reg_U8, uint8_t* read_value_U8A,uint1
 	{
 		return SPI_READ_OK_EN;
 	}
+}
 
-
+inline void HAL_delay_ms(uint32_t time_ms_U32)
+{
+	HAL_Delay(time_ms_U32);
 }
 
 

@@ -34,23 +34,26 @@ typedef enum{
 	RX_PW_P3_REG = 0x14,
 	RX_PW_P4_REG = 0x15,
 	RX_PW_P5_REG = 0x16,
-	FIFO_STATUS_REG = 0x17
+	FIFO_STATUS_REG = 0x17,
+	DYNPD_REG = 0x1C,
+	FEATURE_REG	= 0x1D,
+	R_REGISTER_REG = 0x00,
+	W_REGISTER_REG = 0x20,
+	REGISTER_MASK_REG = 0x1F,
+	ACTIVATE_REG = 0x50,
+	R_RX_PL_WID_REG = 0x60,
+	R_RX_PAYLOAD_REG = 0x61,
+	W_TX_PAYLOAD_REG = 0xA0,
+	W_ACK_PAYLOAD_REG = 0xA8,
+	FLUSH_TX_REG = 0xE1,
+	FLUSH_RX_REG = 0xE2,
+	REUSE_TX_PL_REG = 0xE3,
+	NOP_REG = 0xFF
 }NRF_register_REG;
 
 typedef enum{
-	INIT_OK_EN,
 	NRF_NOT_INIT_EN,
-	NRF_SET_MODE_OK_EN,
-	NRF_SET_MODE_ERROR_EN,
 	NRF_SPI_ERROR_EN,
-	NRF_SPI_OK_EN,
-	NRF_POWER_MODULE_ALREADY_SET_EN,
-	NRF_POWER_MODULE_SET_ERROR_EN,
-	NRF_POWER_MODULE_SET_EN,
-	NRF_TX_MODE_SET_EN,
-	NRF_RX_MODE_SET_EN,
-	NRF_TX_DONE_EN,
-	NRF_RX_DONE_EN,
 	NRF_SIZE_BUFFER_TX_TOO_LARGE_EN,
 	NRF_OK_EN
 }NRF_ret_val_en;
@@ -66,28 +69,12 @@ typedef struct{
 
 
 
-void NRF24_Init (NRF_HAL_function_str NRF_HAL_function_STR);
-
+NRF_ret_val_en NRF24_Init (NRF_HAL_function_str NRF_HAL_function_STR);
 NRF_ret_val_en NRF24_TxMode (uint8_t *Address, uint8_t channel);
 NRF_ret_val_en NRF24_Transmit (uint8_t *data, uint8_t size_data_U8);
-
 NRF_ret_val_en NRF24_RxMode (uint8_t *Address, uint8_t channel);
 NRF_ret_val_en isDataAvailable (uint8_t pipenum_U8, bool* flag_availability_B);
-void NRF24_Receive (uint8_t *data);
-HAL_ret_val_en NRF24_ReadAll (uint8_t *data);
-
-/* Instruction Mnemonics */
-#define R_REGISTER    0x00
-#define W_REGISTER    0x20
-#define REGISTER_MASK 0x1F
-#define ACTIVATE      0x50
-#define R_RX_PL_WID   0x60
-#define R_RX_PAYLOAD  0x61
-#define W_TX_PAYLOAD  0xA0
-#define W_ACK_PAYLOAD 0xA8
-#define FLUSH_TX      0xE1
-#define FLUSH_RX      0xE2
-#define REUSE_TX_PL   0xE3
-#define NOP           0xFF
+NRF_ret_val_en NRF24_Receive (uint8_t *data);
+NRF_ret_val_en NRF24_ReadAll (uint8_t *data);
 
 #endif /* INC_NRF24L01_H_ */

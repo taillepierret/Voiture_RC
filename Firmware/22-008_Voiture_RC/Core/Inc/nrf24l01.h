@@ -69,12 +69,12 @@ typedef struct{
 
 
 
-NRF_ret_val_en NRF24_Init (NRF_HAL_function_str NRF_HAL_function_STR);
-NRF_ret_val_en NRF24_TxMode (uint8_t *Address, uint8_t channel);
-NRF_ret_val_en NRF24_Transmit (uint8_t *data, uint8_t size_data_U8);
-NRF_ret_val_en NRF24_RxMode (uint8_t *Address, uint8_t channel);
-NRF_ret_val_en isDataAvailable (uint8_t pipenum_U8, bool* flag_availability_B);
-NRF_ret_val_en NRF24_Receive (uint8_t *data);
-NRF_ret_val_en NRF24_ReadAll (uint8_t *data);
+NRF_ret_val_en NRF24_Init_EN (NRF_HAL_function_str NRF_HAL_function_STR);
+NRF_ret_val_en NRF24_TxMode_EN (uint8_t *Address, uint8_t channel);
+NRF_ret_val_en NRF24_Transmit_EN (uint8_t *data, uint8_t size_data_U8);
+NRF_ret_val_en NRF24_RxMode_EN (uint8_t *Address, uint8_t channel);
+NRF_ret_val_en isDataAvailable_EN (uint8_t pipenum_U8, bool* flag_availability_B);
+NRF_ret_val_en NRF24_Receive_EN (uint8_t *data);
+NRF_ret_val_en NRF24_ReadAll_EN (uint8_t *data);
 
 #endif /* INC_NRF24L01_H_ */

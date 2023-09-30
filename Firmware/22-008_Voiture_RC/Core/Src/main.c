@@ -68,6 +68,14 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t RxAddress[] = {0x00,0xDD,0xCC,0xBB,0xAA};
+uint8_t RxData[32];
+bool flag_rx_data = false;
+NRF_ret_val_en NRF_ret_val_EN;
+uint8_t data[50];
+
+//uint8_t TxAddress[] = {0xEE,0xDD,0xCC,0xBB,0xAA};
+//uint8_t TxData[] = "Hello World\n";
 
 /* USER CODE END 0 */
 
@@ -111,15 +119,28 @@ int main(void) {
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	uint8_t test[5] = {1,1,1,1,1};
-	NRF24_Init(NRF_HAL_function_local_STR);
-	uint8_t data[40] = {0};
+	NRF24_Init_EN(NRF_HAL_function_local_STR);
+	NRF24_RxMode_EN(RxAddress, 10);
+	//NRF24_TxMode(TxAddress, 10);
+	NRF24_ReadAll_EN(data);
 	while (1) {
-		NRF24_ReadAll (data);
-		NRF24_TxMode(test, test[0]);
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+		NRF_ret_val_EN = isDataAvailable_EN(2,&flag_rx_data);
+		  if (flag_rx_data == true && NRF_ret_val_EN == NRF_OK_EN)
+		  {
+			  NRF24_Receive_EN(RxData);
+			  //HAL_UART_Transmit(&huart2, RxData, strlen((char *)RxData), 1000);
+		  }
+
+
+	//	  if (NRF24_Transmit(TxData) == 1)
+	//	  {
+	//		  HAL_GPIO_TogglePin(GPIOF, GPIO_PIN_9);
+	//	  }
+	//
+	//	  HAL_Delay(1000);
 	}
 	/* USER CODE END 3 */
 }

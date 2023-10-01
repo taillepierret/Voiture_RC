@@ -74,7 +74,7 @@ HAL_ret_val_en HAL_readSpiValue_EN(uint8_t reg_U8, uint8_t* read_value_U8A,uint1
 		HAL_GPIO_WritePin(CSN_GPIO_Port, CSN_Pin, GPIO_PIN_SET);
 		return SPI_READ_ERROR_EN;
 	}
-	HAL_SPI_Receive(&hspi1, read_value_U8A, size_read_value_U16, 100);
+	ret_val = HAL_SPI_Receive(&hspi1, read_value_U8A, size_read_value_U16+1, 100);
 	HAL_GPIO_WritePin(CSN_GPIO_Port, CSN_Pin, GPIO_PIN_SET);
 	if (ret_val != HAL_OK)
 	{

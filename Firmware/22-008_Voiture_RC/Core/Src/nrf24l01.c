@@ -18,17 +18,24 @@ static bool NRF_isInit_B = false;
 // write a single byte to the particular register
 static NRF_ret_val_en NRF_WriteReg_EN(NRF_register_REG register_REG, uint8_t Data_U8)
 {
-	const uint16_t size_buf_U16 = 2;
-	uint8_t buf_U8[size_buf_U16];
+	uint8_t buf_U8[2];
 	HAL_ret_val_en HAL_ret_val_EN;
 
 	buf_U8[0] = register_REG|1<<5;
 	buf_U8[1] = Data_U8;
 
-	HAL_ret_val_EN = HAL_writeSpiValue_EN(buf_U8, size_buf_U16);
+	HAL_ret_val_EN = HAL_writeSpiValue_EN(buf_U8, 2);
 	if(HAL_ret_val_EN != SPI_WRITE_OK_EN)
 	{
-		return NRF_SPI_ERROR_EN;
+		HAL_ret_val_EN = HAL_writeSpiValue_EN(buf_U8, 2);
+		if(HAL_ret_val_EN != SPI_WRITE_OK_EN)
+		{
+			return NRF_SPI_ERROR_EN;
+		}
+		else
+		{
+			return NRF_OK_EN;
+		}
 	}
 	else
 	{
@@ -73,7 +80,7 @@ static HAL_ret_val_en NRF_WriteReg_Multi_EN(NRF_register_REG register_REG, uint8
 static NRF_ret_val_en nrf24_ReadReg_EN(NRF_register_REG register_REG, uint8_t* read_value_U8P)
 {
 	HAL_ret_val_en HAL_ret_val_EN;
-	read_value_U8P = 0;
+	*read_value_U8P = 0;
 	HAL_ret_val_EN = HAL_readSpiValue_EN((uint8_t)register_REG,read_value_U8P,1);
 	if(HAL_ret_val_EN != SPI_READ_OK_EN)
 	{

@@ -1,0 +1,12 @@
+../Core/Src/NRF24L01.c:11:23:NRF_WriteReg_EN	2
+../Core/Src/NRF24L01.c:30:23:NRF_WriteReg_Multi_EN	3
+../Core/Src/NRF24L01.c:51:23:nrf24_ReadReg_EN	2
+../Core/Src/NRF24L01.c:84:23:nrfsendCmd_EN	2
+../Core/Src/NRF24L01.c:98:23:nrf24_reset_EN	28
+../Core/Src/NRF24L01.c:245:23:NRF24_Init_registers_EN	9
+../Core/Src/NRF24L01.c:308:16:NRF24_Init_EN	1
+../Core/Src/NRF24L01.c:327:16:NRF24_TxMode_EN	7
+../Core/Src/NRF24L01.c:382:16:NRF24_Transmit_EN	9
+../Core/Src/NRF24L01.c:432:16:NRF24_RxMode_EN	11
+../Core/Src/NRF24L01.c:515:16:NRF24_isDataAvailable_EN	6
+../Core/Src/NRF24L01.c:547:16:NRF24_Receive_EN	4

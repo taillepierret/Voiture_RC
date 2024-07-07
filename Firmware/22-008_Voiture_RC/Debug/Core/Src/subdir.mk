@@ -5,9 +5,12 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/Application.c \
+../Core/Src/NRF24L01.c \
+../Core/Src/Ted24.c \
+../Core/Src/debug.c \
 ../Core/Src/hal.c \
 ../Core/Src/main.c \
-../Core/Src/nrf24l01.c \
 ../Core/Src/stm32l0xx_hal_msp.c \
 ../Core/Src/stm32l0xx_it.c \
 ../Core/Src/syscalls.c \
@@ -16,9 +19,12 @@ C_SRCS += \
 ../Core/Src/tools.c 
 
 OBJS += \
+./Core/Src/Application.o \
+./Core/Src/NRF24L01.o \
+./Core/Src/Ted24.o \
+./Core/Src/debug.o \
 ./Core/Src/hal.o \
 ./Core/Src/main.o \
-./Core/Src/nrf24l01.o \
 ./Core/Src/stm32l0xx_hal_msp.o \
 ./Core/Src/stm32l0xx_it.o \
 ./Core/Src/syscalls.o \
@@ -27,9 +33,12 @@ OBJS += \
 ./Core/Src/tools.o 
 
 C_DEPS += \
+./Core/Src/Application.d \
+./Core/Src/NRF24L01.d \
+./Core/Src/Ted24.d \
+./Core/Src/debug.d \
 ./Core/Src/hal.d \
 ./Core/Src/main.d \
-./Core/Src/nrf24l01.d \
 ./Core/Src/stm32l0xx_hal_msp.d \
 ./Core/Src/stm32l0xx_it.d \
 ./Core/Src/syscalls.d \

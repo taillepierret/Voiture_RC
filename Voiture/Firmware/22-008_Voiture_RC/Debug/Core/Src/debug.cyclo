@@ -1,0 +1,9 @@
+../Core/Src/debug.c:30:13:DBG_setLogLevel	1
+../Core/Src/debug.c:35:13:DBG_printString	2
+../Core/Src/debug.c:43:13:DBG_printUint32_t	2
+../Core/Src/debug.c:51:6:DBG_checkIfPacketAsBeginAndEnd_B	6
+../Core/Src/debug.c:80:23:DBG_ManageRxPacket	10
+../Core/Src/debug.c:137:16:DBG_treatCommand	5
+../Core/Src/debug.c:165:6:DBG_addDebugCommand	4
+../Core/Src/debug.c:186:6:printBufferUart2	1
+../Core/Src/debug.c:194:6:DBG_process	3

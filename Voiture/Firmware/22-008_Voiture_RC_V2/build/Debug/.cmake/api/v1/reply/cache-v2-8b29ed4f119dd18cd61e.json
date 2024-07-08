@@ -1191,10 +1191,10 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "The CMake toolchain file"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "UNINITIALIZED",
 			"value" : "/home/lightyagami/Projets/22-008_Voiture_RC/Voiture/Firmware/22-008_Voiture_RC_V2/cmake/gcc-arm-none-eabi.cmake"
 		},
 		{

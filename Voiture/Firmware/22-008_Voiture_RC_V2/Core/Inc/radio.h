@@ -35,7 +35,7 @@ typedef union
                 uint8_t source_address_U8[4];
                 uint8_t payload_U8A[SIZE_PAYLOAD_U8];
             }cerced_data_str;
-            uint8_t cerced_data_U32[SIZE_CERCED_DATA_U8];
+            uint8_t cerced_data_U8[SIZE_CERCED_DATA_U8];
         };
         union not_cerced_data_UN
         {
@@ -43,7 +43,7 @@ typedef union
             {
                 uint32_t CRC_ID_U32;
             }not_cerced_data_str;
-            uint8_t not_cerced_data_U32[SIZE_NOT_CERCED_DATA_U8];
+            uint8_t not_cerced_data_U8[SIZE_NOT_CERCED_DATA_U8];
         };
     };
     uint8_t trame_U8[SIZE_TRAME_U8];
@@ -83,6 +83,11 @@ typedef enum
     RADIO_STEPS_DECODE_PROCESS_EN
 }RADIO_steps_decode_packets_en;
 
+
+
+void RADIO_init(void);
+void RADIO_send_trame(RADIO_trame_UN trame_UN);
+void RADIO_receive_trame(RADIO_trame_UN trame_UN);
 
 
 

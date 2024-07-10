@@ -48,7 +48,14 @@ RADIO_trame_UN List_of_packet_to_send_ENA[NUMBER_PACKET_TO_LOAD_U8];
 
 RADIO_my_ID_str my_ID_STR = {0, 0, 0};
 
-void RADIO_init(void)
+//Local functions prototypes
+static bool (*RADIO_treatment_function_B_PF)(RADIO_trame_UN);
+static void RADIO_setAcknowledgeReceivedFlag(bool value_B);
+static void RADIO_sendAcknowledge(RADIO_trame_UN packet_to_ack);
+
+
+
+void RADIO_init(bool (*treatment_function_B_PF)(RADIO_trame_UN))
 {
     curseur_ecriture_U16 = 0;
     curseur_lecture_U16 = 0;
@@ -56,6 +63,7 @@ void RADIO_init(void)
     beginnning_send_time_U32 = 0;
     waiting_acknowledge_B = false;
     acknoledge_received_B = false;
+    RADIO_treatment_function_B_PF = treatment_function_B_PF;
     NRF24_Init_EN(); //TODO
 }
 
@@ -136,7 +144,7 @@ void RADIO_SendStateMachine(void)
     }
 }
 
-void RADIO_setAcknowledgeReceivedFlag(bool value_B)
+static void RADIO_setAcknowledgeReceivedFlag(bool value_B)
 {
     if(value_B == true && acknoledge_received_B == true)
     {
@@ -148,8 +156,32 @@ void RADIO_setAcknowledgeReceivedFlag(bool value_B)
 }
 
 
-void RADIO_addPacketToSend(RADIO_trame_UN packet_to_send_EN)
+void RADIO_SendPacket(uint8_t destination_address_U8, uint8_t trame_type_U6, uint8_t *payload_U8, uint8_t payload_size_U8)
 {
+    RADIO_trame_UN packet_to_send_EN;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.protocol_version_U8 = my_ID_STR.my_protocol_version_U8;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.network_ID_U8 = my_ID_STR.my_network_ID_U8;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.destination_address_U8 = destination_address_U8;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.trame_type_U6 = trame_type_U6;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.nb_nodes_traverses_U2 = 0;
+    packet_to_send_EN.cerced_data_UN.cerced_data_str.source_address_U8 = my_ID_STR.my_address_U8;
+    if(payload_size_U8 > SIZE_PAYLOAD_U8)
+    {
+        for(uint8_t i = 0; i < SIZE_PAYLOAD_U8; i++)
+        {
+            packet_to_send_EN.cerced_data_UN.cerced_data_str.payload_U8A[i] = payload_U8[i];
+        }
+    }
+    else
+    {
+        for(uint8_t i = 0; i < payload_size_U8; i++)
+        {
+            packet_to_send_EN.cerced_data_UN.cerced_data_str.payload_U8A[i] = payload_U8[i];
+        }
+    }
+    packet_to_send_EN.not_cerced_data_UN.not_cerced_data_str.CRC_ID_U32 = TOOLS_CRC32(packet_to_send_EN.cerced_data_UN.cerced_data_U8, SIZE_CERCED_DATA_U8);
+
+
     List_of_packet_to_send_ENA[curseur_ecriture_U16] = packet_to_send_EN;
     curseur_ecriture_U16++;
     if(curseur_ecriture_U16 >= SIZE_BUFFER_U16)
@@ -168,6 +200,7 @@ void RADIO_ReceiveStateMachine(void)
 {
     NRF_ret_val_en NRF_ret_val_EN;
     RADIO_trame_UN received_packet_EN;
+    bool ret_val_B = false;
     switch(RADIO_state_receive_packet_EN)
     {
         case RADIO_RECEIVE_TRANSITION_TO_WAITING_FOR_RECEIVE_PACKET_EN:
@@ -188,7 +221,12 @@ void RADIO_ReceiveStateMachine(void)
             NRF_ret_val_EN = NRF24_Receive_EN(received_packet_EN.trame_U8);
             if(NRF_ret_val_EN == NRF_OK_EN)
             {
-                // TODO: traitement de la trame
+                ret_val_B = RADIO_DecodePacket_B(received_packet_EN);
+                if(ret_val_B != true)
+                {
+                    //logguer l'erreur
+                    error_counter_U16++;
+                }
             }
             else
             {
@@ -239,10 +277,11 @@ uint8_t* RADIO_getGroups(void)
     return my_ID_STR.my_groups_address_U8;
 }
 
-RADIO_steps_decode_packets_en RADIO_DecodePacket(RADIO_trame_UN received_packet_EN)
+bool RADIO_DecodePacket_B(RADIO_trame_UN received_packet_EN)
 {
     RADIO_steps_decode_packets_en step_decode_packet_EN = RADIO_STEPS_CHECK_PROTOCOL_VERSION_EN;
     bool packet_is_for_me_B = false;
+    bool ret_val_B = false;
     switch (step_decode_packet_EN)
     {
         case RADIO_STEPS_CHECK_PROTOCOL_VERSION_EN:
@@ -252,7 +291,7 @@ RADIO_steps_decode_packets_en RADIO_DecodePacket(RADIO_trame_UN received_packet_
             }
             else
             {
-                return RADIO_STEPS_CHECK_PROTOCOL_VERSION_EN;
+                return false;
             }
         case RADIO_STEPS_CHECK_NETWORK_ID_EN:
             if(received_packet_EN.cerced_data_UN.cerced_data_str.network_ID_U8 == my_ID_STR.my_network_ID_U8)
@@ -261,7 +300,7 @@ RADIO_steps_decode_packets_en RADIO_DecodePacket(RADIO_trame_UN received_packet_
             }
             else
             {
-                return RADIO_STEPS_CHECK_NETWORK_ID_EN;
+                return false;
             }
         case RADIO_STEPS_CHECK_DESTINATION_ADDRESS_EN:
             for (uint8_t i_U8 = 0; i_U8 < NUMBER_MAX_OF_GROUPS_U8; i_U8++)
@@ -277,7 +316,7 @@ RADIO_steps_decode_packets_en RADIO_DecodePacket(RADIO_trame_UN received_packet_
             }
             else
             {
-                return RADIO_STEPS_CHECK_DESTINATION_ADDRESS_EN;
+                return false;
             }
         case RADIO_STEPS_CHECK_CRC_ID_EN:
             if(received_packet_EN.cerced_data_UN.cerced_data_str.CRC_ID_U32 == TOOLS_CRC32(received_packet_EN.not_cerced_data_UN.not_cerced_data_str.CRC_ID_U32, SIZE_NOT_CERCED_DATA_U8))
@@ -286,30 +325,47 @@ RADIO_steps_decode_packets_en RADIO_DecodePacket(RADIO_trame_UN received_packet_
             }
             else
             {
-                return RADIO_STEPS_CHECK_CRC_ID_EN;
+                return false;
             }
             break;
         case RADIO_STEPS_DECODE_PROCESS_EN:
-            switch (received_packet_EN.cerced_data_UN.cerced_data_str.trame_type_U6)
+            if(received_packet_EN.cerced_data_UN.cerced_data_str.trame_type_U6 == RADIO_ACKNOWLEDGEMENT_EN)
             {
-                case RADIO_ACKNOWLEDGEMENT_EN:
-                    //TODO
-                    break;
-                case RADIO_TEMPERATURE_EN:
-                    //TODO
-                    break;
-                case RADIO_HUMIDITY_EN:
-                    //TODO
-                    break;
-                case RADIO_COMMAND_LEDS_STRIP_EN:
-                    //TODO
-                    break;
-                case RADIO_BATTERY_PERCENTAGE_EN:
-                    //TODO
-                    break;
-                
-                default:
-                    break;
-                    
+                if(packet_ID_to_acknowledge_U32 == received_packet_EN.cerced_data_UN.cerced_data_str.payload_U8A[0])
+                {
+                    RADIO_setAcknowledgeReceivedFlag(true);
+                    return true;
+                }
+                else
+                {
+                    //logguer l'erreur
+                    error_counter_U16++;
+                    return false;
+                }
             }
+            else
+            {
+                ret_val_B = RADIO_treatment_function_B_PF(received_packet_EN);
+                if(ret_val_B == true)
+                {
+                    RADIO_sendAcknowledge(received_packet_EN);
+                    return true;
+                }
+                else
+                {
+                    //logguer l'erreur
+                    error_counter_U16++;
+                    return false;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+static void RADIO_sendAcknowledge(RADIO_trame_UN packet_to_ack)
+{
+    uint8_t payload_U8[1] = {packet_to_ack.cerced_data_UN.cerced_data_str.CRC_ID_U32};
+    RADIO_SendPacket(packet_to_ack.cerced_data_UN.cerced_data_str.source_address_U8, RADIO_ACKNOWLEDGEMENT_EN, payload_U8, 1);
 }

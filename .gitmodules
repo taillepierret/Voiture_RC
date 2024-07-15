@@ -1,0 +1,3 @@
+[submodule "Voiture/Firmware/22-008_Voiture_RC_V2/Plateforme-RF24"]
+	path = Voiture/Firmware/22-008_Voiture_RC_V2/Plateforme-RF24
+	url = https://github.com/taillepierret/Plateforme-RF24

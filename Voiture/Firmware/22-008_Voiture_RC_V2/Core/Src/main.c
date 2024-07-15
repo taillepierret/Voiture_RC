@@ -21,8 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../Inc/debug.h"
+#include "../../Firmware_24-006_plateforme_RF24/Inc/debug.h"
 #include "../Inc/applications.h"
+#include "../Inc/hal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -119,7 +120,10 @@ int main(void)
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
-  DEBUG_Init();
+  //initialisation du debug
+  DEBUG_HAL_functions_str DEBUG_HAL_functions_STR = {HAL_InitDebugUart, HAL_GetTime, HAL_DebugPrint};
+
+  DEBUG_Init(&DEBUG_HAL_functions_STR);
   APP_Init();
   /* USER CODE END 2 */
 

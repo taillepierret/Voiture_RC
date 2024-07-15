@@ -12,6 +12,7 @@
         "log.h": "c",
         "NRF24L01.h": "c",
         "hal.h": "c",
-        "frames.h": "c"
+        "frames.h": "c",
+        "stdbool.h": "c"
     }
 }

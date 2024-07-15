@@ -10,29 +10,13 @@
 
 #include "stdint.h"
 #include "stdbool.h"
+#include "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc/typedef.h"
 
 
 typedef enum {
 	LED_VERTE_EN,
 	LED_ROUGE_EN
 }led_en;
-
-typedef enum
-{
-	HAL_LED_SET_OK,
-	HAL_LED_SET_ERROR,
-	HAL_SPI_WRITE_ERROR_EN,
-	HAL_SPI_WRITE_OK_EN,
-	HAL_SPI_READ_ERROR_EN,
-	HAL_SPI_READ_OK_EN
-}HAL_ret_val_en;
-
-typedef struct
-{
-	uint8_t seconds_U8;
-	uint8_t minutes_U8;
-	uint8_t hours_U8;
-}HAL_RTC_values_str;
 
 
 void HAL_InitDebugUart(void);

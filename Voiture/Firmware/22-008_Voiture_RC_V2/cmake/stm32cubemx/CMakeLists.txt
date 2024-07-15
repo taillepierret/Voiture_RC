@@ -14,6 +14,7 @@ target_compile_definitions(stm32cubemx INTERFACE
 
 target_include_directories(stm32cubemx INTERFACE
     ../../Core/Inc
+    ../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc
     ../../Drivers/STM32L0xx_HAL_Driver/Inc
     ../../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy
     ../../Drivers/CMSIS/Device/ST/STM32L0xx/Include
@@ -23,6 +24,7 @@ target_include_directories(stm32cubemx INTERFACE
 # Add all source files from ../../Core/Src
 file(GLOB CORE_SRC_FILES
     "../../Core/Src/*.c"
+    "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/*.c"
 )
 
 target_sources(stm32cubemx INTERFACE    

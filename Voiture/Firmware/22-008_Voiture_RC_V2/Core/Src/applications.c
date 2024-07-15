@@ -1,8 +1,9 @@
 #include "../Inc/applications.h"
-#include "../Inc/radio.h"
+#include "../../Firmware_24-006_plateforme_RF24/Inc/radio.h"
 #include "../Inc/Motor_driver.h"
 #include "../Inc/hal.h"
-#include "../Inc/NRF24L01.h"
+#include "../../Firmware_24-006_plateforme_RF24/Inc/NRF24L01.h"
+#include "../Inc/config.h"
 
 
 bool treatment_function_B_PF(RADIO_trame_UN RADIO_trame_UN);
@@ -12,7 +13,8 @@ NRF_HAL_function_str NRF_HAL_function_STR =
     .setCe_PF = HAL_setCE,
     .readSpiValue_EN_PF = HAL_readSpiValue_EN,
     .delay_ms_PF = HAL_delay_ms,
-    .writeSpiValue_EN_PF = HAL_writeSpiValue_EN
+    .writeSpiValue_EN_PF = HAL_writeSpiValue_EN,
+    .millis_PF_U32 = HAL_millis_U32
 };
 
 
@@ -20,7 +22,7 @@ NRF_HAL_function_str NRF_HAL_function_STR =
 void APP_Init(void)
 {
   // Initialize the bride manager
-  RADIO_Init(treatment_function_B_PF, NRF_HAL_function_STR);
+  RADIO_Init(treatment_function_B_PF, NRF_HAL_function_STR,NUMERO_VERSION_PROTOCOLE_RADIO_U8,NUMERO_RESEAU_U8,DEFAULT_ADDRESS_U8);
 }
 void APP_process(void)
 {

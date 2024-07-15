@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "../Inc/debug.h"
+#include "../Inc/applications.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -119,6 +120,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   DEBUG_Init();
+  APP_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -129,9 +131,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     //test du debug avec un toggle de la led
-    HAL_GPIO_TogglePin(LED_V_EN_GPIO_Port, LED_V_EN_Pin);
-    DEBUG_PrintString("LED V toggled\n", true);
-    HAL_Delay(1000);
+    APP_process();
   }
   /* USER CODE END 3 */
 }

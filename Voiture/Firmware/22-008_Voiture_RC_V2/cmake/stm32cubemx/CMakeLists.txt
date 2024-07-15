@@ -20,7 +20,13 @@ target_include_directories(stm32cubemx INTERFACE
     ../../Drivers/CMSIS/Include
 )
 
-target_sources(stm32cubemx INTERFACE
+# Add all source files from ../../Core/Src
+file(GLOB CORE_SRC_FILES
+    "../../Core/Src/*.c"
+)
+
+target_sources(stm32cubemx INTERFACE    
+    ${CORE_SRC_FILES}
     ../../Core/Src/main.c
     ../../Core/Src/stm32l0xx_it.c
     ../../Core/Src/stm32l0xx_hal_msp.c
@@ -53,6 +59,7 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
     ../../startup_stm32l010x6.s
+
 )
 
 target_link_directories(stm32cubemx INTERFACE

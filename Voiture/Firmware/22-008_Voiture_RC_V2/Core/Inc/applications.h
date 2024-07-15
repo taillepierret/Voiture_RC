@@ -7,6 +7,12 @@
 
 
 
+void APP_process(void);
+void APP_Init(void);
+
+
+
+
 
 
 #endif // APPLICATIONS_H

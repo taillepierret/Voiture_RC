@@ -5,6 +5,13 @@
         "stm32l0xx_hal_conf.h": "c",
         "debug.h": "c",
         "radio.h": "c",
-        "nrf24l01.h": "c"
+        "application.h": "c",
+        "frame.h": "c",
+        "tools.h": "c",
+        "typedef.h": "c",
+        "log.h": "c",
+        "NRF24L01.h": "c",
+        "hal.h": "c",
+        "frames.h": "c"
     }
 }

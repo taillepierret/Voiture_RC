@@ -116,7 +116,7 @@ void HAL_DebugPrint(uint8_t* data_U8P, uint16_t size_data_U16)
 }
 
 void HAL_GetTime(HAL_RTC_values_str* HAL_RTC_values_STR)
-{
+{ //Gerer la valeur de retour de HAL_RTC_getTime
 	RTC_TimeTypeDef sTime_EN;
 	HAL_RTC_GetTime(&hrtc, &sTime_EN, RTC_FORMAT_BIN);
 	HAL_RTC_values_STR->hours_U8 = sTime_EN.Hours;

@@ -1,3 +1,5 @@
 [submodule "Firmware\\22-008_Voiture_RC\\Plateforme-RF24"]
 	path = Firmware\\22-008_Voiture_RC\\Plateforme-RF24
 	url = https://github.com/taillepierret/Plateforme-RF24
+[submodule "Firmware/22-008_Voiture_RC/Plateforme-RF24"]
+	url = https://github.com/taillepierret/Plateforme-RF24

@@ -1,14 +1,12 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/Src/Application.c \
-../Core/Src/NRF24L01.c \
-../Core/Src/Ted24.c \
-../Core/Src/debug.c \
+../Core/Src/Motor_driver.c \
+../Core/Src/applications.c \
 ../Core/Src/hal.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32l0xx_hal_msp.c \
@@ -19,10 +17,8 @@ C_SRCS += \
 ../Core/Src/tools.c 
 
 OBJS += \
-./Core/Src/Application.o \
-./Core/Src/NRF24L01.o \
-./Core/Src/Ted24.o \
-./Core/Src/debug.o \
+./Core/Src/Motor_driver.o \
+./Core/Src/applications.o \
 ./Core/Src/hal.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32l0xx_hal_msp.o \
@@ -33,10 +29,8 @@ OBJS += \
 ./Core/Src/tools.o 
 
 C_DEPS += \
-./Core/Src/Application.d \
-./Core/Src/NRF24L01.d \
-./Core/Src/Ted24.d \
-./Core/Src/debug.d \
+./Core/Src/Motor_driver.d \
+./Core/Src/applications.d \
 ./Core/Src/hal.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32l0xx_hal_msp.d \
@@ -54,7 +48,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/hal.cyclo ./Core/Src/hal.d ./Core/Src/hal.o ./Core/Src/hal.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/nrf24l01.cyclo ./Core/Src/nrf24l01.d ./Core/Src/nrf24l01.o ./Core/Src/nrf24l01.su ./Core/Src/stm32l0xx_hal_msp.cyclo ./Core/Src/stm32l0xx_hal_msp.d ./Core/Src/stm32l0xx_hal_msp.o ./Core/Src/stm32l0xx_hal_msp.su ./Core/Src/stm32l0xx_it.cyclo ./Core/Src/stm32l0xx_it.d ./Core/Src/stm32l0xx_it.o ./Core/Src/stm32l0xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l0xx.cyclo ./Core/Src/system_stm32l0xx.d ./Core/Src/system_stm32l0xx.o ./Core/Src/system_stm32l0xx.su ./Core/Src/tools.cyclo ./Core/Src/tools.d ./Core/Src/tools.o ./Core/Src/tools.su
+	-$(RM) ./Core/Src/Motor_driver.cyclo ./Core/Src/Motor_driver.d ./Core/Src/Motor_driver.o ./Core/Src/Motor_driver.su ./Core/Src/applications.cyclo ./Core/Src/applications.d ./Core/Src/applications.o ./Core/Src/applications.su ./Core/Src/hal.cyclo ./Core/Src/hal.d ./Core/Src/hal.o ./Core/Src/hal.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32l0xx_hal_msp.cyclo ./Core/Src/stm32l0xx_hal_msp.d ./Core/Src/stm32l0xx_hal_msp.o ./Core/Src/stm32l0xx_hal_msp.su ./Core/Src/stm32l0xx_it.cyclo ./Core/Src/stm32l0xx_it.d ./Core/Src/stm32l0xx_it.o ./Core/Src/stm32l0xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32l0xx.cyclo ./Core/Src/system_stm32l0xx.d ./Core/Src/system_stm32l0xx.o ./Core/Src/system_stm32l0xx.su ./Core/Src/tools.cyclo ./Core/Src/tools.d ./Core/Src/tools.o ./Core/Src/tools.su
 
 .PHONY: clean-Core-2f-Src
 

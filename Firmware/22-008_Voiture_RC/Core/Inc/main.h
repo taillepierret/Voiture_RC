@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -67,6 +67,10 @@ void Error_Handler(void);
 #define onb_GPIO_Port GPIOA
 #define on_Pin GPIO_PIN_1
 #define on_GPIO_Port GPIOA
+#define Courant_moteur_Pin GPIO_PIN_4
+#define Courant_moteur_GPIO_Port GPIOA
+#define Tension_batterie_Pin GPIO_PIN_1
+#define Tension_batterie_GPIO_Port GPIOB
 #define cmd_pleins_phares_Pin GPIO_PIN_10
 #define cmd_pleins_phares_GPIO_Port GPIOB
 #define led_v_Pin GPIO_PIN_13

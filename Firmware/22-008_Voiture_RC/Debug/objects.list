@@ -32,3 +32,8 @@
 "./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o"
 "./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o"
 "./Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.o"
+"./Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.o"
+"./Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/frames.o"
+"./Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.o"
+"./Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/radio.o"
+"./Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/tools.o"

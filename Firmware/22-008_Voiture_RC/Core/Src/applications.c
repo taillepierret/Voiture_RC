@@ -1,8 +1,8 @@
 #include "../Inc/applications.h"
 #include "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc/radio.h"
+#include "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc/log.h"
 #include "../Inc/Motor_driver.h"
 #include "../Inc/hal.h"
-#include "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc/NRF24L01.h"
 #include "../Inc/config.h"
 
 
@@ -17,16 +17,31 @@ NRF_HAL_function_str NRF_HAL_function_STR =
     .millis_PF_U32 = HAL_millis_U32
 };
 
-
-
-void APP_Init(void)
+uint32_t APP_last_send_time_U32 = 0;
+LOG_HAL_functions_str LOG_HAL_functions_STR =
 {
-  // Initialize the bride manager
-  RADIO_Init(treatment_function_B_PF, NRF_HAL_function_STR,NUMERO_VERSION_PROTOCOLE_RADIO_U8,NUMERO_RESEAU_U8,DEFAULT_ADDRESS_U8);
-}
+	.CleanUart2Buffer = HAL_FlushUart2Buffer,
+	.GetUart2Buffer = HAL_GetUart2Buffer,
+	.DebugPrint = HAL_PrintString,
+	.GetTime = HAL_GetTime,
+	.InitDebugUart = HAL_InitDebugUart,
+	.Millis_U32 = HAL_millis_U32
+};
+
+
 void APP_process(void)
 {
-  // Process the bride manager
+	RADIO_Init_B(treatment_function_B_PF, NRF_HAL_function_STR,NUMERO_VERSION_PROTOCOLE_RADIO_U8,NUMERO_RESEAU_U8,DEFAULT_ADDRESS_U8);
+	LOG_Init(&LOG_HAL_functions_STR, cSIZE_BUFFER_UART_2_RX_U16);
+	while (1)
+	{
+		RADIO_process();
+		if (HAL_millis_U32() - APP_last_send_time_U32 > 5000)
+		{
+			APP_last_send_time_U32 = HAL_millis_U32();
+			RADIO_SendPing(0x18);
+		}
+	}
 }
 
 bool treatment_function_B_PF(RADIO_trame_UN RADIO_trame_UN)

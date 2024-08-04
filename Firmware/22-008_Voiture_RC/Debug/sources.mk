@@ -25,4 +25,5 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32L0xx_HAL_Driver/Src \
+Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src \
 

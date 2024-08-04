@@ -21,7 +21,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Inc/debug.h"
 #include "../Inc/applications.h"
 #include "../Inc/hal.h"
 /* USER CODE END Includes */

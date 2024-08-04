@@ -1,0 +1,13 @@
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:29:6:LOG_Init	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:37:6:LOG_PrintString	9
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:69:6:LOG_PrintStringCRLF	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:75:6:LOG_PrintUint8	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:82:6:LOG_PrintUint8CRLF	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:88:6:LOG_setLogLevel	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:92:6:LOG_addCommand_B	5
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:113:6:LOG_TreatCommand_B	19
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:222:6:LOG_CleanReceivedBuffer_B	4
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:246:6:LOG_process	2
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:259:6:LOG_printHelloWorld	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:265:6:LOG_PrintUint32CRLF	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/log.c:274:6:LOG_PrintUint32	1

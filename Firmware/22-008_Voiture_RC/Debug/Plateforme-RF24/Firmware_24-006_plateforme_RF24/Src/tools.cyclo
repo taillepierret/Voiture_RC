@@ -1,0 +1,3 @@
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/tools.c:26:10:TOOLS_CRC32	4
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/tools.c:50:9:calculate_crc8_U8	2
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/tools.c:61:6:TOOLS_IsTimeoutEnded_B	5

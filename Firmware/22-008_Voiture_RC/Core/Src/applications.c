@@ -14,7 +14,8 @@ NRF_HAL_function_str NRF_HAL_function_STR =
     .readSpiValue_EN_PF = HAL_readSpiValue_EN,
     .delay_ms_PF = HAL_delay_ms,
     .writeSpiValue_EN_PF = HAL_writeSpiValue_EN,
-    .millis_PF_U32 = HAL_millis_U32
+    .millis_PF_U32 = HAL_millis_U32,
+	.getTimestamp_PF_U32 = HAL_GetTimestamp_U32
 };
 
 uint32_t APP_last_send_time_U32 = 0;

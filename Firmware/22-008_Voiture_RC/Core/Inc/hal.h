@@ -43,6 +43,7 @@ void HAL_InitDebugUart(void);
 void HAL_GetUart2Buffer(char* buffer_CA);
 void HAL_FlushUart2Buffer(void);
 void HAL_PrintString(char* string);
+uint32_t HAL_GetTimestamp_U32(void);
 
 
 

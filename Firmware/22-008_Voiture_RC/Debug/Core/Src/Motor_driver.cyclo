@@ -1,0 +1,6 @@
+../Core/Src/Motor_driver.c:7:6:MD_Init	1
+../Core/Src/Motor_driver.c:12:6:MD_setSpeed	1
+../Core/Src/Motor_driver.c:17:6:MD_setDirection	1
+../Core/Src/Motor_driver.c:22:6:MD_setBrake	1
+../Core/Src/Motor_driver.c:27:6:MD_SetDirectionAngle	1
+../Core/Src/Motor_driver.c:32:6:MD_setLight	1

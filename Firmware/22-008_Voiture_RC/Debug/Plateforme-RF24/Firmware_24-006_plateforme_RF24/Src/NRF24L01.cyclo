@@ -1,0 +1,12 @@
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:18:16:NRF24_Init_EN	1
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:37:23:NRF_WriteReg_EN	2
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:56:23:NRF_WriteReg_Multi_EN	3
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:77:23:nrf24_ReadReg_EN	2
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:110:23:nrfsendCmd_EN	2
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:124:23:nrf24_reset_EN	28
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:271:23:NRF24_Init_registers_EN	9
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:335:16:NRF24_TxMode_EN	7
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:390:16:NRF24_Transmit_EN	9
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:440:16:NRF24_RxMode_EN	11
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:523:16:NRF24_isDataAvailable_EN	6
+../Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src/NRF24L01.c:555:16:NRF24_Receive_EN	4

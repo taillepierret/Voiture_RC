@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 ELF_SRCS := 
@@ -25,4 +25,5 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32L0xx_HAL_Driver/Src \
+Plateforme-RF24/Firmware_24-006_plateforme_RF24/Src \
 
